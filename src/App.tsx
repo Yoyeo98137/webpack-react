@@ -6,6 +6,7 @@ import { Demo1, Demo2 } from "@/components";
 // import "@/app.less";
 
 import DemoMemo from "@/components/memo/index";
+import BatchState from "@/components/state/BatchState";
 
 const LazyDemo = lazy(() => import("@/components/LazyDemo")); // 使用import语法配合react的Lazy动态引入资源
 
@@ -77,6 +78,7 @@ function App() {
         </>
       )}
       <DemoMemo />
+      <BatchState />
     </>
   );
 }
