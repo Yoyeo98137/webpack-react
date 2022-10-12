@@ -20,6 +20,53 @@ webpack5 + React 18 + Typescript
 无论是 PureComponent 还是 Memo 都是在最外层包裹整个组件，在某些场景下我们只需要对组件的部分进行缓存，  
 这就需要通过 `useMemo` 来做细粒化的处理。
 
+#### React Hook
+
+##### react 是怎么保证多个 `useState` 的相互独立的？
+
+react 会根据 `useState` 出现的顺序来识别响应的状态：
+
+```js
+//第一次渲染
+useState(42); //将age初始化为42
+useState("banana"); //将fruit初始化为banana
+useState([{ text: "Learn Hooks" }]); //...
+
+//第二次渲染
+useState(42); //读取状态变量age的值（这时候传的参数42直接被忽略）
+useState("banana"); //读取状态变量fruit的值（这时候传的参数banana直接被忽略）
+useState([{ text: "Learn Hooks" }]); //...
+```
+
+假设中间出现了条件语句：
+
+```js
+let showFruit = true;
+function ExampleWithManyStates() {
+  const [age, setAge] = useState(42);
+
+  if (showFruit) {
+    const [fruit, setFruit] = useState("banana");
+    showFruit = false;
+  }
+
+  const [todos, setTodos] = useState([{ text: "Learn Hooks" }]);
+  // ...
+}
+
+//第一次渲染
+useState(42); //将age初始化为42
+useState("banana"); //将fruit初始化为banana
+useState([{ text: "Learn Hooks" }]); //...
+
+//第二次渲染
+useState(42); //读取状态变量age的值（这时候传的参数42直接被忽略）
+// useState('banana');
+useState([{ text: "Learn Hooks" }]); //读取到的却是状态变量fruit的值，导致报错
+```
+
+于是乎，react 规定我们必须将 hooks 写在函数的最外层，不能用在条件语句比如 if/else 里面，从而保证 hook 正确的执行顺序。
+
 ### webpack5
 
 #### loader
