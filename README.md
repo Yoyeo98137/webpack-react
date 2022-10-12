@@ -9,6 +9,17 @@ webpack5 + React 18 + Typescript
 
 ## 总结
 
+### React
+
+#### 优化
+
+- Class component —— `React.PureComponent`
+- Function Component —— `React.memo`（跟 PureComponent 相似，都是浅比较，一个提供给类组件，一个提供给函数组件）
+- Hooks —— `useMemo`
+
+无论是 PureComponent 还是 Memo 都是在最外层包裹整个组件，在某些场景下我们只需要对组件的部分进行缓存，  
+这就需要通过 `useMemo` 来做细粒化的处理。
+
 ### webpack5
 
 #### loader

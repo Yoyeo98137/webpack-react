@@ -5,6 +5,8 @@ import bigImg from "@/assets/images/22kb.png";
 import { Demo1, Demo2 } from "@/components";
 // import "@/app.less";
 
+import DemoMemo from "@/components/memo/index";
+
 const LazyDemo = lazy(() => import("@/components/LazyDemo")); // 使用import语法配合react的Lazy动态引入资源
 
 // prefetch
@@ -74,6 +76,7 @@ function App() {
           </Suspense>
         </>
       )}
+      <DemoMemo />
     </>
   );
 }
